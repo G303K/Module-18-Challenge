@@ -39,7 +39,7 @@ THEN I can successfully generate and delete reactions to thoughts, as well as ad
 
 ## Google Drive Video Link
 
-- (PLACEHOLDER LINK HERE)
+- https://drive.google.com/file/d/1RWJzzYSYSDNj6SlcA1R7uK-pj-5PcWCk/view
 
 ## Installation
 
