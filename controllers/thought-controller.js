@@ -1,6 +1,9 @@
+// Importing the Thought and User models
 const { Thought, User } = require("../models");
 
+// Controller for handling various CRUD operations on thoughts
 const thoughtController = {
+  // Get all thoughts with reactions, sorted by ID in descending order
   getAllThought(req, res) {
     Thought.find({})
       .populate({ path: "reactions", select: "-__v" })
@@ -10,6 +13,7 @@ const thoughtController = {
       .catch((err) => res.sendStatus(400));
   },
 
+  // Get a single thought by its ID
   getThoughtById({ params }, res) {
     Thought.findOne({ _id: params.id })
       .populate({ path: "reactions", select: "-__v" })
@@ -22,6 +26,7 @@ const thoughtController = {
       .catch((err) => res.sendStatus(400));
   },
 
+  // Create a new thought and associate it with a user
   createThought({ body }, res) {
     Thought.create(body)
       .then(({ _id }) =>
@@ -41,6 +46,7 @@ const thoughtController = {
       .catch((err) => res.json(err));
   },
 
+  // Update a thought by its ID
   updateThought({ params, body }, res) {
     Thought.findOneAndUpdate({ _id: params.id }, body, {
       new: true,
@@ -56,6 +62,7 @@ const thoughtController = {
       .catch((err) => res.json(err));
   },
 
+  // Delete a thought by its ID and remove its association with the user
   deleteThought({ params }, res) {
     Thought.findOneAndDelete({ _id: params.id })
       .then((dbThoughtData) => {
@@ -77,6 +84,7 @@ const thoughtController = {
       .catch((err) => res.json(err));
   },
 
+  // Add a reaction to a thought by its ID
   addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
@@ -91,6 +99,7 @@ const thoughtController = {
       .catch((err) => res.json(err));
   },
 
+  // Remove a reaction from a thought by its ID and reaction ID
   removeReaction({ params }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
@@ -102,4 +111,5 @@ const thoughtController = {
   },
 };
 
+// Export the thoughtController for use in other modules
 module.exports = thoughtController;
